@@ -2,6 +2,7 @@ import lxml.etree as lxml
 from urlparse import urlparse
 import simplejson as json
 import re
+import os
 
 def parse_article(url):
     tree = lxml.parse(url, parser=lxml.HTMLParser())
@@ -14,30 +15,39 @@ def parse_article(url):
     html = lxml.tostring(body)
     return title, html
 
-def save_progress():
-    with open('out.json', 'w') as f:
-        f.write(json.dumps(STORAGE))
 domain = 'http://wiki.lesswrong.com'
-def get_links_from_toc(url, section, storage):
+outdir = 'out'
+os.mkdir(outdir)
+
+def get_links_from_toc(url, section, path):
     urltup = urlparse(url)
     if not urltup.netloc:
         url = domain + url
     tree = lxml.parse(url, parser=lxml.HTMLParser())
     ul = tree.xpath('//table[@id="toc"]/tr/td/ul/li[%d]/ul' % (section,))[0]
     titles = [li[0].get('href') for li in ul.getchildren()]
-    for t in titles: 
-        a = tree.xpath('//span[@id="'+t[1:]+'"]/a')[0]
-        url = a.get('href')
-        if urltup.path == '/wiki/Sequences':
-            storage[t] = {}
-            print 'Exploring', t
-            get_links_from_toc(url, 1, storage[t])
-        else: # assumed to be 'lesswrong.com'
-            title, html = parse_article(url)
-            storage[title] = html
-            print 'Stored', title
-            save_progress()
+    try:
+        for i, t in enumerate(titles): 
+            title = t[1:]
+            a = tree.xpath('//span[@id="'+title+'"]/a')[0]
+            newurl = a.get('href')
+            if urltup.path == '/wiki/Sequences':
+                fpath = os.path.join(path, title)
+                os.mkdir(fpath)
+                print 'Exploring', title
+                get_links_from_toc(newurl, 1, fpath)
+            else: # assumed to be 'lesswrong.com'
+                try:
+                    title, html = parse_article(newurl)
+                    #fname = "".join(x for x in title if x.isalnum())
+                    with open(os.path.join(path, '%02d.html'%i), 'w') as f:
+                        f.write(title + '\n')
+                        f.write(html)
+                    print 'Stored', title
+                except:
+                    print 'Failed on2', newurl
+    except:
+        print "failed on", url, newurl
 
-STORAGE = {}
-get_links_from_toc('/wiki/Sequences', 4, STORAGE)
+get_links_from_toc('/wiki/Sequences', 4, outdir)
 print 'Complete.'
