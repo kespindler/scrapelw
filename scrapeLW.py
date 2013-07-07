@@ -61,8 +61,8 @@ def get_links_from_toc(url, section, path):
         header = tree.xpath('//span[@id="Blog_posts"]')
         if header:
             ul = header[0].getparent().getnext()
-            titles = [l[0].text for l in ul]
             urls = [l[0].get('href') for l in ul]
+            titles = [l[0].text for l in ul]
         else:
             print "No links to follow", url
 
@@ -74,6 +74,8 @@ def get_links_from_toc(url, section, path):
             hotstart = None
         #print i, title
         newurl = urls[i]
+        if not newurl:
+            continue
         if not urlparse(newurl).netloc:
             fpath = os.path.join(path, '%02d'%i)
             with open(os.path.join(path, 'titles.txt'), 'a') as f:
