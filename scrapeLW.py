@@ -27,15 +27,15 @@ try:
 except:
     pass
 
-hotstart = 'A_Human.27s_Guide_to_Words' #only works on top level at the moment
+hotstart = None#'How_To_Actually_Change_Your_Mind' #only works on top level at the moment
 def get_links_from_toc(url, section, path):
     if not url.startswith('http'):
         url = 'http://' + domain + url
+    print url
     global hotstart
     tree = lxml.parse(url, parser=lxml.HTMLParser())
     ul = tree.xpath('//table[@id="toc"]/tr/td/ul/li[%d]/ul' % (section,))[0]
     titles = [li[0].get('href') for li in ul.getchildren()]
-    #try:
     if 1:
         for i, t in enumerate(titles): 
             title = t[1:]
@@ -46,22 +46,27 @@ def get_links_from_toc(url, section, path):
                     hotstart = None
             a = tree.xpath('//span[@id="'+title+'"]/a')[0]
             newurl = a.get('href')
-            if urlparse(newurl).netloc == domain:
-                fpath = os.path.join(path, '%02dtitle'%i)
+            if not urlparse(newurl).netloc:
+                fpath = os.path.join(path, '%02d')
+                with open(os.path.join(path, 'titles.txt'), 'a') as f:
+                    f.write(title + '\n')
                 os.mkdir(fpath)
                 print 'Exploring', title
                 try:
-                    get_links_from_toc(newurl, 1, fpath)
-                except:
+                    url = 'http://' + urlparse(url).netloc + newurl
+                    get_links_from_toc(url, 1, fpath)
+                except Exception as e:
                     print 'Failed on3', newurl
+                    print e
             else: # assumed to be 'lesswrong.com'
                 #try:
                 if 1:
                     title, html = parse_article(newurl)
                     #fname = "".join(x for x in title if x.isalnum())
                     with open(os.path.join(path, '%02d.html'%i), 'w') as f:
-                        f.write(title + '\n')
                         f.write(html)
+                    with open(os.path.join(path, 'titles.txt'), 'a') as f:
+                        f.write(title + '\n')
                     print 'Stored', title
                 #except:
                 #    print 'Failed on2', newurl

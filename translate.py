@@ -1,10 +1,12 @@
 import subprocess as sub
 import os
+import lxml.etree as lxml
 
 outfile = 'LessWrong Sequences.rst'
 
 DEPTH_CHAR = '=-:"~^_*'
 outf = open(outfile, 'w')
+outf.write('.. contents::\n\n')
 
 indir = 'out'
 def mktitlebar(depth, title):
@@ -25,9 +27,21 @@ def appendWalk(adir, depth):
                 text = f.read()
             titleindex = text.find('\n')
             title = text[:titleindex]
+            body = text[titleindex:]
+            tree = lxml.fromstring(body, parser=lxml.HTMLParser())
+            imgs = tree.xpath('//img')
+            for i in imgs:
+                p = i.getparent()
+                while 1:
+                    if p.tag == 'p':
+                        p.remove(i)
+                        break
+                    i=p
+                    p=i.getparent()
+            body = lxml.tostring(tree)
             newtext = (title + '\n' +
                     mktitlebar(depth, title) + '\n' +
-                    text[titleindex:])
+                    body)
             outf.write(newtext)
             os.remove(outrst)
 
