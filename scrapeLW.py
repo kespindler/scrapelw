@@ -82,13 +82,12 @@ def get_links_from_toc(url, section, path):
                 f.write(title + '\n')
             os.mkdir(fpath)
             print 'Exploring', title
-          #  try:
-            if 1:
+            try:
                 url = 'http://' + urlparse(url).netloc + newurl
                 get_links_from_toc(url, 1, fpath)
-            #except Exception as e:
-            #    print 'Failed on3', newurl
-            #    print e
+            except Exception as e:
+                print 'Failed on3', newurl
+                print e
         else: # assumed to be 'lesswrong.com'
             #try:
             title, html = parse_article(newurl)
