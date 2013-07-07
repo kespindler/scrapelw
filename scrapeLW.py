@@ -30,7 +30,7 @@ def parse_article(url):
             break
 
     #strip out images because we don't handle them yet..
-    imgs = body.xpath('//img')
+    imgs = body.xpath('.//img')
     for i in imgs:
         p = i.getparent()
         while 1:
