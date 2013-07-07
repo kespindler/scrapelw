@@ -1,7 +1,7 @@
 Download Links
 ==============
 
-The books can be found in this `Dropbox Folder <https://www.dropbox.com/sh/y3uv8bvyhf9eu5h/8N-V_wf4w6>`_. ``epub``, ``mobi``, and ``rst`` are available there.
+The books can be found in this `Dropbox Folder <https://www.dropbox.com/sh/y3uv8bvyhf9eu5h/8N-V_wf4w6>`_. ``epub``, ``mobi``, ``html``, and ``rst`` are available there.
 
 Prequisites
 ===========
