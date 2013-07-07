@@ -7,8 +7,8 @@ Prequisites
 ===========
 
 #. A few python libraries. ``lxml`` provides most of the heavy-lifting.
-#. `pandoc <http://johnmacfarlane.net/pandoc/>_`
-#. `kindlegen <http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000765211>_`, if you want to read on your kindle. Install: go to the link, unzip the download, and just drag it somewhere into your path. bbbb
+#. `pandoc <http://johnmacfarlane.net/pandoc/>`_
+#. `kindlegen <http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000765211>`_, if you want to read on your kindle. Install: go to the link, unzip the download, and just drag it somewhere into your path.
 
 Instructions
 ============
