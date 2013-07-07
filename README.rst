@@ -1,9 +1,9 @@
 Prequisites
 ===========
 
-#. A few python libraries.
-#. ``pandoc``
-#. ```kindlegen`` <http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000765211>_`, if you want to read on your kindle. Install: go to the link, unzip the download, and just drag it somewhere into your path. bbbb
+#. A few python libraries. ``lxml`` provides most of the heavy-lifting.
+#. `pandoc <http://johnmacfarlane.net/pandoc/>_`
+#. `kindlegen <http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000765211>_`, if you want to read on your kindle. Install: go to the link, unzip the download, and just drag it somewhere into your path. bbbb
 
 Instructions
 ============
@@ -16,8 +16,6 @@ Instructions
 
 Using pandoc, this rst file can be converted into pretty much anything. I like reading on my Kindle:
 
-#. Run ``pandoc -o lesswrong.epub lesswrong.rst``.
-#.
-
-
+#. Run ``pandoc -o lesswrong.html lesswrong.rst``.
+#. Run ``kindlegen lesswrong.html``. Note there is a major bug right now - I can't figure out how to get the rst table of contents to be active within the mobi. If anyone has the solution to this I'd love to hear about it!
 

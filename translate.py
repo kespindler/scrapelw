@@ -2,7 +2,7 @@ import subprocess as sub
 import os
 import lxml.etree as lxml
 
-outfile = 'LessWrong Sequences.rst'
+outfile = 'lesswrong.rst'
 
 DEPTH_CHAR = '=-:"~^_*'
 outf = open(outfile, 'w')
