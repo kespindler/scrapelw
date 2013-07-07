@@ -24,3 +24,7 @@ Using pandoc, this rst file can be converted into pretty much anything. I like r
 #. Run ``pandoc -o lesswrong.html lesswrong.rst``.
 #. Run ``kindlegen lesswrong.html``. Note there is a major bug right now - I can't figure out how to get the rst table of contents to be active within the mobi. If anyone has the solution to this I'd love to hear about it!
 
+Known Issues
+============
+
+This works really well on some of the sequences, but only sort of well at other times. Working on this. And pull-requests are welcome.
