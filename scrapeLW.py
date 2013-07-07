@@ -43,7 +43,7 @@ def parse_article(url):
     html = lxml.tostring(body)
     return title, html
 
-hotstart = 'How_To_Actually_Change_Your_Mind' #only works on top level at the moment
+hotstart = None#'How_To_Actually_Change_Your_Mind' #only works on top level at the moment
 def get_links_from_toc(url, section, path):
     if not url.startswith('http'):
         url = 'http://' + DOMAIN + url
