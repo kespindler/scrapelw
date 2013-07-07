@@ -24,7 +24,15 @@ def appendWalk(apath, depth):
         files.remove('titles.txt')
         for l in files:
             num = os.path.splitext(l)[0]
-            title = titles[int(num)]
+            if not num.isdigit():
+                print 'ignore', l
+                continue
+            try:
+                title = titles[int(num)]
+            except Exception as e:
+                print 'Failed for', num, titles, depth, title, apath
+                continue
+
             outf.write(title + '\n' +
                     mktitlebar(depth, title) + 
                     '\n\n')
@@ -34,6 +42,7 @@ def appendWalk(apath, depth):
         sub.call(['pandoc', '-o', outrst, apath])
         with open(outrst) as f:
             text = f.read()
+        text = text.rstrip() + '\n\n'
         outf.write(text)
         os.remove(outrst)
 

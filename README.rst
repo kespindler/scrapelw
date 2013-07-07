@@ -27,4 +27,5 @@ Using pandoc, this rst file can be converted into pretty much anything. I like r
 Known Issues
 ============
 
-This works really well on some of the sequences, but only sort of well at other times. Working on this. And pull-requests are welcome.
+#. This works really well on some of the sequences, but only sort of well at other times. Working on this. And pull-requests are welcome.
+#. 

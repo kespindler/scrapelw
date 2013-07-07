@@ -58,7 +58,8 @@ def get_links_from_toc(url, section, path):
         urls = [a.get('href') for a in links]
         #print '\n'.join(str(x) for x in zip(titles, links, urls))
     else: 
-        header = tree.xpath('//span[@id="Blog_posts"]')
+        header = (tree.xpath('//span[@id="Blog_posts"]') or 
+            tree.xpath('//span[@id="Main_sequence"]'))
         if header:
             ul = header[0].getparent().getnext()
             urls = [l[0].get('href') for l in ul]
